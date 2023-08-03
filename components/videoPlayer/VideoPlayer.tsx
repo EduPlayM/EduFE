@@ -46,6 +46,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoSrc }) => {
       setPlayer(
         videojs(videoRef.current, {
           controls: true,
+          autoplay: 'any',
           sources: [
             {
               src: videoSrc,

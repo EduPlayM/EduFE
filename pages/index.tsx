@@ -1,6 +1,7 @@
 import Card from '@/components/cards/Card';
 import axios from 'axios';
 import React from 'react';
+import LazyLoad from 'react-lazy-load';
 
 interface CardData {
   name: number;
@@ -39,11 +40,13 @@ const Home: React.FC<HomeProps> = ({ cards }) => {
         <div className="cards grid grid-cols-3 rounded-box w-full">
           {cards.map(card => (
             <div key={card.name}>
-              <Card
-                cardName={card.name}
-                cardThumbnailUrl={card.thumbnailUrl}
-                quiz={card.quiz}
-              />
+              <LazyLoad height={440}>
+                <Card
+                  cardName={card.name}
+                  cardThumbnailUrl={card.thumbnailUrl}
+                  quiz={card.quiz}
+                />
+              </LazyLoad>
             </div>
           ))}
         </div>

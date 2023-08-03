@@ -35,16 +35,18 @@ const DetailsPage: React.FC = () => {
     if (id) {
       fetchVideoDetails();
     }
-  }, [id]);
+  }, [id]); // id가 변경될 때마다 이 효과를 재실행
 
   useEffect(() => {
+    if (!id) return; // id가 없으면 아무 것도 하지 않음
+
     const socket = io('wss://eduplay.jisuheo.shop', {
       transports: ['websocket'],
     });
     console.log('socket.io connected');
 
     // 퀴즈 주제 선택
-    socket.emit('startQuiz', 1); // topic 선택은 나중에 prompt로 수정
+    socket.emit('startQuiz', id); // topic 선택은 router의 query로부터 가져옴
 
     // 퀴즈 받아오기
     socket.on('sendQuiz', (quiz: Quiz) => {
