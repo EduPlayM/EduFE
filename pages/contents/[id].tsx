@@ -68,7 +68,7 @@ const DetailsPage: React.FC = () => {
     ) {
       setIsCorrect(true);
       alert('정답입니다 👍');
-      handleStartQuiz();
+      // handleStartQuiz();
     } else {
       alert('오답입니다 ❌');
     }

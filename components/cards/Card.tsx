@@ -4,7 +4,7 @@ import VideoPlayer from '../videoPlayer/VideoPlayer';
 import Link from 'next/link';
 
 interface CardProps {
-  cardName?: number;
+  cardName?: string;
   cardUrl?: number;
   cardSentence?: string;
   cardThumbnailUrl?: string;
