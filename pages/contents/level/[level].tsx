@@ -1,5 +1,7 @@
 import Card from '@/components/cards/Card';
 import axios from 'axios';
+import { collectGenerateParams } from 'next/dist/build/utils';
+import { useRouter } from 'next/router';
 import React from 'react';
 import LazyLoad from 'react-lazy-load';
 
@@ -25,7 +27,15 @@ interface HomeProps {
   cards: CardData[];
 }
 
-const Home: React.FC<HomeProps> = ({ cards }) => {
+// const abc = () => {
+//   const router = useRouter();
+//   const { id: level } = router.query;
+//   console.log('Hi');
+
+//   return level;
+// };
+
+const Level: React.FC<HomeProps> = ({ cards }) => {
   if (!cards) {
     return (
       <div className="flex justify-center items-center h-[100vh]">
@@ -67,10 +77,11 @@ const Home: React.FC<HomeProps> = ({ cards }) => {
   );
 };
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async (context: any) => {
   try {
+    const level = context.params.level;
     const res = await axios.get(
-      'https://eduplay.jisuheo.shop/contents/level/${level}', // 여기를 파라미터로 바꾸려면 레벨을 받아와야 하는데 로그인구현이 안되어있어서 레벨을 못받아옴
+      `https://eduplay.jisuheo.shop/contents/level/${level}`, // 여기를 파라미터로 바꾸려면 레벨을 받아와야 하는데 로그인구현이 안되어있어서 레벨을 못받아옴
     );
     const cards: CardData[] = res.data;
 
@@ -81,4 +92,4 @@ export const getServerSideProps = async () => {
   }
 };
 
-export default Home;
+export default Level;

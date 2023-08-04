@@ -20,7 +20,7 @@ const DetailsPage: React.FC = () => {
   const [videoDetails, setVideoDetails] = useState<VideoDetails | null>(null);
   const [quiz, setQuiz] = useState<Quiz | null>(null);
   const [socket, setSocket] = useState<any>(null);
-  const [isCorrect, setIsCorrect] = useState<boolean>(false);
+  // const [isCorrect, setIsCorrect] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchVideoDetails = async () => {
@@ -55,18 +55,28 @@ const DetailsPage: React.FC = () => {
       setQuiz(quiz);
     });
 
+    socket.on('congratulations', (msg: string) => {
+      alert(msg);
+    });
+
     socket.on('user disconnection', (msg: string) => {
       console.log('연결 종료', msg);
+    });
+
+    socket.on('levelUp', (msg: string) => {
+      alert(msg); // 레벨 업그레이드 메시지를 알림으로 표시
     });
   };
 
   const handleAnswer = (userAnswer: number) => {
+    let correct = false; // 로컬 변수를 정의하여 직접 관리
+
     if (
       quiz &&
       quiz.answerList &&
       quiz.answerList[userAnswer - 1] == quiz.answer
     ) {
-      setIsCorrect(true);
+      correct = true;
       alert('정답입니다 👍');
       // handleStartQuiz();
     } else {
@@ -76,7 +86,7 @@ const DetailsPage: React.FC = () => {
     if (socket && quiz) {
       socket.emit('sendAnswer', {
         quizId: quiz.id,
-        isCorrect: isCorrect,
+        isCorrect: correct,
       });
     }
   };
