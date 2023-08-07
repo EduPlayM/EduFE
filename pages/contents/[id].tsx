@@ -42,6 +42,9 @@ const DetailsPage: React.FC = () => {
   const handleStartQuiz = () => {
     const socket = io('wss://eduplay.jisuheo.shop', {
       transports: ['websocket'],
+      extraHeaders: {
+        'authorization': 'bearer token'
+      }
     });
     console.log('socket.io connected');
 

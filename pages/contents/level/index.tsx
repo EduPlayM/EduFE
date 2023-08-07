@@ -79,9 +79,15 @@ const Level: React.FC<HomeProps> = ({ cards }) => {
 
 export const getServerSideProps = async (context: any) => {
   try {
-    const level = context.params.level;
+    // const level = context.params.level;
     const res = await axios.get(
-      `https://eduplay.jisuheo.shop/contents/level/${level}`, // 여기를 파라미터로 바꾸려면 레벨을 받아와야 하는데 로그인구현이 안되어있어서 레벨을 못받아옴
+      `https://eduplay.jisuheo.shop/contents/level`, // 여기를 파라미터로 바꾸려면 레벨을 받아와야 하는데 로그인구현이 안되어있어서 레벨을 못받아옴
+      {
+        headers: {
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoidXNlcjFAZ21haWwuY29tIiwiaWF0IjoxNjkxMzcwNjIyLCJleHAiOjE2OTEzNzQyMjJ9.o_N4AzMs_wzXZaPRWthkA4eIks_zYjEv0wsMiRK-l5o',
+        },
+      },
     );
     const cards: CardData[] = res.data;
 
